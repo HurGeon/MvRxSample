@@ -1,5 +1,6 @@
-package com.example.mvrxsample.domain
+package com.example.mvrxsample.domain.repository
 
+import com.example.mvrxsample.domain.News
 import io.reactivex.Single
 
 interface NewsRepository {

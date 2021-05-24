@@ -1,8 +1,8 @@
 package com.example.mvrxsample.module
 
 import com.example.mvrxsample.domain.NewsApiService
-import com.example.mvrxsample.domain.NewsRepository
-import com.example.mvrxsample.domain.NewsRepositoryImpl
+import com.example.mvrxsample.domain.repository.NewsRepository
+import com.example.mvrxsample.data.NewsRepositoryImpl
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
