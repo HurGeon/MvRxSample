@@ -1,4 +1,4 @@
-package com.example.mvrxsample.news
+package com.example.mvrxsample.presenter.news
 
 import android.os.Bundle
 import android.view.LayoutInflater

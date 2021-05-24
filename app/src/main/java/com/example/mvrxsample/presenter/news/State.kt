@@ -1,4 +1,4 @@
-package com.example.mvrxsample.news
+package com.example.mvrxsample.presenter.news
 
 import com.airbnb.mvrx.Async
 import com.airbnb.mvrx.MvRxState
