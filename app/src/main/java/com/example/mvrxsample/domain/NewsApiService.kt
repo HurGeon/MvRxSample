@@ -7,6 +7,7 @@ import retrofit2.http.Query
 
 interface NewsApiService {
 
+
     @GET("/rss")
     fun getNews(
         @Query("hl") language: String
