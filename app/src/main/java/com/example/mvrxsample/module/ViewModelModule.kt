@@ -17,9 +17,6 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(NewsSampleViewModel::class)
     abstract fun bindNewsSampleViewModel(newsSampleViewModel: NewsSampleViewModel) :ViewModel
-
-    @Binds
-    abstract fun bindViewModelFactory(factory: ViewModelFactory) : ViewModelProvider.Factory
 }
 
 

@@ -13,17 +13,18 @@ class NewsSampleViewModel @Inject constructor(
 
     var testStr = MutableLiveData<String>()
 
-//    init {
-//        getNews()
-//    }
+    init {
+        getNews()
+    }
 
     fun getNews(){
-        newsRepository.getNews("")
-            .observeOn(Schedulers.io())
+        newsRepository.getNews("ko")
+            .subscribeOn(Schedulers.io())
             .subscribe({
                 testStr.postValue(it.toString())
                 Log.d("TAG", it.toString())
             }, {
+                testStr.postValue(it.toString())
                 Log.d("Throwable", it.toString())
             })
     }

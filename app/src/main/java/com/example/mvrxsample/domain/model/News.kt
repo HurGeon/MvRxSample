@@ -1,4 +1,4 @@
-package com.example.mvrxsample.domain
+package com.example.mvrxsample.domain.model
 
 data class News(
     var title: String?,
