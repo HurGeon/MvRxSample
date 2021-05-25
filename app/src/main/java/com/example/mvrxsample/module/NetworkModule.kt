@@ -18,7 +18,7 @@ class NetworkModule {
     @Singleton
     fun provideRetrofit(): Retrofit = Retrofit.Builder()
         .baseUrl("https://news.google.com/")
-        .callFactory(OkHttpClient.Builder().build())
+//        .callFactory(OkHttpClient.Builder().build())
         .addConverterFactory(SimpleXmlConverterFactory.create())
 //        .addConverterFactory(TikXmlConverterFactory.create())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

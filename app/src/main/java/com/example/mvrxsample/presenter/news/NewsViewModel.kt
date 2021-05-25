@@ -14,10 +14,10 @@ class NewsViewModel @AssistedInject constructor(
     private var repository: NewsRepository
 ) : BaseMvRxViewModel<State>(initialState = initialState, debugMode = true) {
     init {
-        getNews()
+//        getNews()
     }
 
-    fun getNews() = withState { repository.getNews("").execute { copy(news = it) } }
+//    fun getNews() = withState { repository.getNews("").execute { copy(news = it) } }
 
 
     companion object : MvRxViewModelFactory<NewsViewModel, State> {

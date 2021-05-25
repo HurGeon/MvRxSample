@@ -38,7 +38,7 @@ class NewsSampleFragment : Fragment() {
 
     fun observeLiveData() {
         viewModel.testStr.observe(this.viewLifecycleOwner, {
-            tv_test.text = viewModel.testStr.toString()
+            tv_test.text = viewModel.testStr.value
         })
     }
 }

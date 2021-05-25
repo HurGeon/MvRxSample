@@ -1,6 +1,7 @@
 package com.example.mvrxsample.presenter.sample
 
 import android.util.Log
+import androidx.annotation.MainThread
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.mvrxsample.domain.repository.NewsRepository
@@ -21,11 +22,11 @@ class NewsSampleViewModel @Inject constructor(
         newsRepository.getNews("ko")
             .subscribeOn(Schedulers.io())
             .subscribe({
-                testStr.postValue(it.toString())
                 Log.d("TAG", it.toString())
+                testStr.postValue(it.channel?.list.toString())
             }, {
-                testStr.postValue(it.toString())
                 Log.d("Throwable", it.toString())
+                testStr.postValue(it.toString())
             })
     }
 
