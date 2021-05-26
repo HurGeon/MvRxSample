@@ -1,5 +1,6 @@
 package com.example.mvrxsample
 
+import com.example.mvrxsample.module.NetworkModule
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -13,5 +14,21 @@ class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
         assertEquals(4, 2 + 2)
+    }
+
+    @Test
+    fun getNewsTest() {
+        val networkModule = NetworkModule()
+        var repository = networkModule.provideRepositories(networkModule.provideApiService(networkModule.provideRetrofit()))
+        var text = repository.getNews("https://news.sbs.co.kr/news/endPage.do?news_id=N1006330340").blockingGet()
+        print(text)
+    }
+
+    @Test
+    fun getNewsListTest() {
+        val networkModule = NetworkModule()
+        var repository = networkModule.provideRepositories(networkModule.provideApiService(networkModule.provideRetrofit()))
+        var text = repository.getNewsList("").blockingGet()
+        print(text)
     }
 }

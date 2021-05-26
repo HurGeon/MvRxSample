@@ -1,4 +1,4 @@
-package com.example.mvrxsample.data
+package com.example.mvrxsample.data.dto
 
 import org.simpleframework.xml.ElementList
 import org.simpleframework.xml.Root

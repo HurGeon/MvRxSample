@@ -3,11 +3,14 @@ package com.example.mvrxsample.module
 import com.example.mvrxsample.domain.NewsApiService
 import com.example.mvrxsample.domain.repository.NewsRepository
 import com.example.mvrxsample.data.NewsRepositoryImpl
+import com.example.mvrxsample.util.XmlAndHtmlConverters
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
+import retrocrawler.jsoup.annotations.RetroCrawlerJSoupAnnotationConverterFactory
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory
 import javax.inject.Singleton
 
@@ -18,18 +21,25 @@ class NetworkModule {
     @Singleton
     fun provideRetrofit(): Retrofit = Retrofit.Builder()
         .baseUrl("https://news.google.com/")
-//        .callFactory(OkHttpClient.Builder().build())
-        .addConverterFactory(SimpleXmlConverterFactory.create())
-//        .addConverterFactory(TikXmlConverterFactory.create())
+        .callFactory(OkHttpClient.Builder().build())
+        .addConverterFactory(
+            XmlAndHtmlConverters.QualifiedTypeConverterFactory(
+                RetroCrawlerJSoupAnnotationConverterFactory.create(),
+                ScalarsConverterFactory.create(),
+                SimpleXmlConverterFactory.create()
+            )
+        )
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
 
     @Provides
     @Singleton
-    fun provideApiService(retrofit: Retrofit): NewsApiService = retrofit.create(NewsApiService::class.java)
+    fun provideApiService(retrofit: Retrofit): NewsApiService =
+        retrofit.create(NewsApiService::class.java)
 
     @Provides
     @Singleton
-    fun provideRepositories(apiService: NewsApiService): NewsRepository = NewsRepositoryImpl(apiService)
+    fun provideRepositories(apiService: NewsApiService): NewsRepository =
+        NewsRepositoryImpl(apiService)
 
 }

@@ -1,9 +1,13 @@
 package com.example.mvrxsample.domain.repository
 
-import com.example.mvrxsample.data.ArticleResponse
+import com.example.mvrxsample.data.dto.ArticleResponse
+import com.example.mvrxsample.data.dto.NewsResponse
+import com.example.mvrxsample.domain.model.News
 import io.reactivex.Single
 
 interface NewsRepository {
 
-    fun getNews(language: String) : Single<ArticleResponse>
+    fun getNewsList(language: String): Single<ArticleResponse>
+
+    fun getNews(url: String): Single<NewsResponse>
 }
