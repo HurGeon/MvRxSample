@@ -14,7 +14,6 @@ class GetNewsUseCase @Inject constructor(
         return newsRepository.getNewsList("")
             .flatMap { article ->
                 Flowable.fromIterable(article.channel?.list).flatMapSingle {
-                    System.out.println("Request Started")
                     getNewsDetailUseCase.convert(it.link)
                 }.toList()
             }
