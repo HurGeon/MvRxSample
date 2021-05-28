@@ -6,7 +6,7 @@ import retrofit2.Converter
 import retrofit2.Retrofit
 import java.lang.reflect.Type
 
-class XmlAndHtmlConverters {
+class ResponseConverters {
     @Retention(AnnotationRetention.RUNTIME)
     annotation class HTML
 
@@ -17,7 +17,9 @@ class XmlAndHtmlConverters {
     annotation class Scalars
 
     class QualifiedTypeConverterFactory constructor(
-        var factoryHTML: Converter.Factory, var factoryScalars : Converter.Factory, var factoryXML: Converter.Factory
+        var factoryHTML: Converter.Factory,
+        var factoryScalars: Converter.Factory,
+        var factoryXML: Converter.Factory
     ) : Converter.Factory() {
         override fun responseBodyConverter(
             type: Type,
@@ -39,9 +41,24 @@ class XmlAndHtmlConverters {
             retrofit: Retrofit
         ): Converter<*, RequestBody>? {
             for (annotation in parameterAnnotations) {
-                if (annotation is HTML) return factoryHTML.requestBodyConverter(type, parameterAnnotations, methodAnnotations, retrofit)
-                if (annotation is Scalars) return factoryScalars.requestBodyConverter(type, parameterAnnotations, methodAnnotations, retrofit)
-                if (annotation is XML) return factoryXML.requestBodyConverter(type, parameterAnnotations, methodAnnotations, retrofit)
+                if (annotation is HTML) return factoryHTML.requestBodyConverter(
+                    type,
+                    parameterAnnotations,
+                    methodAnnotations,
+                    retrofit
+                )
+                if (annotation is Scalars) return factoryScalars.requestBodyConverter(
+                    type,
+                    parameterAnnotations,
+                    methodAnnotations,
+                    retrofit
+                )
+                if (annotation is XML) return factoryXML.requestBodyConverter(
+                    type,
+                    parameterAnnotations,
+                    methodAnnotations,
+                    retrofit
+                )
             }
             return null
         }

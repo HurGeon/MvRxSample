@@ -4,34 +4,33 @@ import com.airbnb.mvrx.BaseMvRxViewModel
 import com.airbnb.mvrx.FragmentViewModelContext
 import com.airbnb.mvrx.MvRxViewModelFactory
 import com.airbnb.mvrx.ViewModelContext
-import com.example.mvrxsample.domain.repository.NewsRepository
+import com.example.mvrxsample.domain.usecase.GetNewsUseCase
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 
 class NewsViewModel @AssistedInject constructor(
     @Assisted initialState: State,
-    private var repository: NewsRepository
+    private val getNewsUseCase: GetNewsUseCase
 ) : BaseMvRxViewModel<State>(initialState = initialState, debugMode = true) {
     init {
-//        getNewsList()
+        getNewsList()
     }
 
-//    fun getNewsList() = withState { repository.getNewsList("").execute { copy(news = it) } }
-
+    fun getNewsList() = withState {
+        getNewsUseCase.invoke().execute { copy(it) }
+    }
 
     companion object : MvRxViewModelFactory<NewsViewModel, State> {
         @JvmStatic
         override fun create(viewModelContext: ViewModelContext, state: State): NewsViewModel? {
-            val fragment : NewsFragment = (viewModelContext as FragmentViewModelContext).fragment()
+            val fragment: NewsFragment = (viewModelContext as FragmentViewModelContext).fragment()
             return fragment.viewModelFactory.create(state)
         }
     }
 
     @AssistedFactory
-    interface Factory{
+    interface Factory {
         fun create(initialState: State): NewsViewModel
     }
-
 }
-

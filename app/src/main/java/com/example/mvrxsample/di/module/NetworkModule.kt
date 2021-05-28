@@ -1,13 +1,12 @@
-package com.example.mvrxsample.module
+package com.example.mvrxsample.di.module
 
+import com.example.mvrxsample.BuildConfig
 import com.example.mvrxsample.domain.NewsApiService
-import com.example.mvrxsample.domain.repository.NewsRepository
-import com.example.mvrxsample.data.NewsRepositoryImpl
-import com.example.mvrxsample.util.XmlAndHtmlConverters
+import com.example.mvrxsample.util.ResponseConverters
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
-import retrocrawler.jsoup.annotations.RetroCrawlerJSoupAnnotationConverterFactory
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
@@ -21,10 +20,18 @@ class NetworkModule {
     @Singleton
     fun provideRetrofit(): Retrofit = Retrofit.Builder()
         .baseUrl("https://news.google.com/")
-        .callFactory(OkHttpClient.Builder().build())
+        .client(
+            OkHttpClient.Builder()
+                .addInterceptor(
+                    HttpLoggingInterceptor().setLevel(
+                        if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
+                    )
+                )
+                .build()
+        )
         .addConverterFactory(
-            XmlAndHtmlConverters.QualifiedTypeConverterFactory(
-                RetroCrawlerJSoupAnnotationConverterFactory.create(),
+            ResponseConverters.QualifiedTypeConverterFactory(
+                ScalarsConverterFactory.create(),
                 ScalarsConverterFactory.create(),
                 SimpleXmlConverterFactory.create()
             )
@@ -36,10 +43,4 @@ class NetworkModule {
     @Singleton
     fun provideApiService(retrofit: Retrofit): NewsApiService =
         retrofit.create(NewsApiService::class.java)
-
-    @Provides
-    @Singleton
-    fun provideRepositories(apiService: NewsApiService): NewsRepository =
-        NewsRepositoryImpl(apiService)
-
 }

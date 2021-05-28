@@ -8,6 +8,3 @@ data class ArticleResponse(
     @field:Element(name = "channel")
     var channel: Channel? = null
 )
-
-
-
