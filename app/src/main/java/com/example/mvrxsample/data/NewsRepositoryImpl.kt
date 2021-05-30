@@ -8,6 +8,6 @@ import io.reactivex.Single
 class NewsRepositoryImpl(val service: NewsApiService) : NewsRepository {
 
     override fun getNewsList(language: String): Single<ArticleResponse> {
-        return service.getNewsList()
+        return service.getNewsList(language)
     }
 }

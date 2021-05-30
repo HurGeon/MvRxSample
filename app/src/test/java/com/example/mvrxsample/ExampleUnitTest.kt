@@ -65,16 +65,11 @@ class ExampleUnitTest {
         val networkModule = NetworkModule()
         val repository =
             RepositoryModule().provideRepositories(networkModule.provideApiService(networkModule.provideRetrofit()))
-        val list = GetNewsUseCase(repository, GetNewsDetailUseCase()).invoke()
-            .subscribe({
-            val endTime = System.currentTimeMillis()
-            println("끝 : $endTime")
-            println("처리시간  : ${endTime - startTime}")
-            println(it)
-        }, {
-            println(it.message)
-        }
-        )
+        val list = GetNewsUseCase(repository, GetNewsDetailUseCase()).invoke().blockingGet()
+        val endTime = System.currentTimeMillis()
+        println("끝 : $endTime")
+        println("처리시간  : ${endTime - startTime}")
+        println(list)
         Thread.sleep(50000)
     }
 }

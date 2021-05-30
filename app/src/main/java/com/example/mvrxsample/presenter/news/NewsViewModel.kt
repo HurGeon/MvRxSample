@@ -17,8 +17,8 @@ class NewsViewModel @AssistedInject constructor(
         getNewsList()
     }
 
-    fun getNewsList() = withState {
-        getNewsUseCase.invoke().execute { copy(it) }
+    private fun getNewsList() = withState {
+        getNewsUseCase.invoke().execute { copy(newsList = it) }
     }
 
     companion object : MvRxViewModelFactory<NewsViewModel, State> {

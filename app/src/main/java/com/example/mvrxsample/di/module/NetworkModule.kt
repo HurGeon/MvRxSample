@@ -2,14 +2,12 @@ package com.example.mvrxsample.di.module
 
 import com.example.mvrxsample.BuildConfig
 import com.example.mvrxsample.domain.NewsApiService
-import com.example.mvrxsample.util.ResponseConverters
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory
 import javax.inject.Singleton
 
@@ -29,13 +27,7 @@ class NetworkModule {
                 )
                 .build()
         )
-        .addConverterFactory(
-            ResponseConverters.QualifiedTypeConverterFactory(
-                ScalarsConverterFactory.create(),
-                ScalarsConverterFactory.create(),
-                SimpleXmlConverterFactory.create()
-            )
-        )
+        .addConverterFactory(SimpleXmlConverterFactory.create())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
 
