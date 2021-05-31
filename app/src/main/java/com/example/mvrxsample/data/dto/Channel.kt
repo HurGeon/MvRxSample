@@ -1,10 +1,9 @@
 package com.example.mvrxsample.data.dto
 
-import org.simpleframework.xml.ElementList
-import org.simpleframework.xml.Root
+import com.tickaroo.tikxml.annotation.Element
+import com.tickaroo.tikxml.annotation.Xml
 
-@Root(name = "channel", strict = false)
+@Xml
 data class Channel(
-    @field:ElementList(entry = "item", inline = true)
-    var list: List<Item>? = null
+    @Element(name = "item") var list: List<Item>? = null
 )

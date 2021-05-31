@@ -2,13 +2,14 @@ package com.example.mvrxsample.di.module
 
 import com.example.mvrxsample.BuildConfig
 import com.example.mvrxsample.domain.NewsApiService
+import com.tickaroo.tikxml.TikXml
+import com.tickaroo.tikxml.retrofit.TikXmlConverterFactory
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.simplexml.SimpleXmlConverterFactory
 import javax.inject.Singleton
 
 @Module
@@ -27,7 +28,13 @@ class NetworkModule {
                 )
                 .build()
         )
-        .addConverterFactory(SimpleXmlConverterFactory.create())
+        .addConverterFactory(
+            TikXmlConverterFactory.create(
+                TikXml.Builder()
+                    .exceptionOnUnreadXml(false)
+                    .build()
+            )
+        )
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
 

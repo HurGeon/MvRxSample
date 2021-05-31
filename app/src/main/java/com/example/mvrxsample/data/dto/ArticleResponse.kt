@@ -1,10 +1,10 @@
 package com.example.mvrxsample.data.dto
 
-import org.simpleframework.xml.Element
-import org.simpleframework.xml.Root
+import com.tickaroo.tikxml.annotation.Element
+import com.tickaroo.tikxml.annotation.Xml
 
-@Root(name = "rss", strict = false)
+@Xml
 data class ArticleResponse(
-    @field:Element(name = "channel")
+    @Element(name = "channel")
     var channel: Channel? = null
 )

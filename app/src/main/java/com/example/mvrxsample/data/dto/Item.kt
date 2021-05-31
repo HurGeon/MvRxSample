@@ -1,13 +1,14 @@
 package com.example.mvrxsample.data.dto
 
-import org.simpleframework.xml.Element
+import com.tickaroo.tikxml.annotation.PropertyElement
+import com.tickaroo.tikxml.annotation.Xml
 
-@Element(name = "item")
+@Xml
 data class Item(
-    @field:Element(name = "title") var title: String? = null,
-    @field:Element(name = "link") var link: String? = null,
-    @field:Element(name = "guid") var guid: String? = null,
-    @field:Element(name = "pubDate") var pubDate: String? = null,
-    @field:Element(name = "description") var description: String? = null,
-    @field:Element(name = "source") var source: String? = null
+    @PropertyElement(name = "title") var title: String? = null,
+    @PropertyElement(name = "link") var link: String? = null,
+    @PropertyElement(name = "guid") var guid: String? = null,
+    @PropertyElement(name = "pubDate") var pubDate: String? = null,
+    @PropertyElement(name = "description") var description: String? = null,
+    @PropertyElement(name = "source") var source: String? = null
 )
