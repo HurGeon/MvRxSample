@@ -23,6 +23,5 @@ interface AppComponent {
         fun create(@BindsInstance context: Context): AppComponent
     }
 
-    // fun inject(fragment: NewsSampleFragment)
     fun inject(fragment: NewsFragment)
 }
