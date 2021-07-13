@@ -12,7 +12,10 @@ import dagger.assisted.AssistedInject
 class NewsViewModel @AssistedInject constructor(
     @Assisted initialState: State,
     private val getNewsUseCase: GetNewsUseCase
-) : BaseMvRxViewModel<State>(initialState = initialState, debugMode = true) {
+) : BaseMvRxViewModel<State>(
+    initialState = initialState,
+    debugMode = true
+) {
     init {
         getNewsList()
     }
